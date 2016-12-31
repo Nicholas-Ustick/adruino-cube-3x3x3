@@ -18,7 +18,7 @@
 */
 
 Fireworks::Fireworks() {
-  setTimer(500);
+  setTimer(50);
 }
 
 Fireworks::Fireworks(unsigned long rate) : Animation(rate) {
@@ -34,6 +34,12 @@ boolean Fireworks::update() {
 }
 
 void Fireworks::updateState() {
+  const boolean SPARKLE_LEDS[3][3] = {
+    {true, true, true },
+    {true, false, true },
+    {true, true, true },
+  };
+
   switch (_state) {
     case LAUNCH: {
         DATA[1][1][_count] = true;
@@ -44,14 +50,27 @@ void Fireworks::updateState() {
         if ( _count == CUBE_SIZE ) {
           _state = SPARKLE;
         }
+        setTimer(50*(_count+1));
       }
       break;
 
     case SPARKLE: {
         reset();
-        _count = 0;
-        _state = LAUNCH;
-      }
+        _count--;
+
+        if ( _count < 0 ) {
+          _count = 0;
+          _state = LAUNCH;
+          break;
+        }
+
+        for (int x = 0; x < CUBE_SIZE; x++) {
+          for (int y = 0; y < CUBE_SIZE; y++) {
+            DATA[x][y][_count] = SPARKLE_LEDS[x][y];
+          }
+        }
+        setTimer(100*(4-_count));
+        }
       break;
 
     default:
