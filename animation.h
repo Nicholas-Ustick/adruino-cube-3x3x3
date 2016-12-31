@@ -26,18 +26,28 @@ class Animation {
     Animation(unsigned long ticks);
 
     void reset();
-    
+    void show();
+
+    /** Subclasses implement the logic to
+     *  Populate the DATA for the cube on
+     *  each loop and determine the frame rates.
+     */
     virtual boolean update() = 0;
-    virtual void show() = 0;
 
   protected:
     void setTimer(unsigned long ticks );
     boolean isTimeup();
     void nextTimeup();
 
+    void selectLayer(int z);
+
+    // Maintains the  pixel settings.
+    boolean DATA[CUBE_SIZE][CUBE_SIZE][CUBE_SIZE];
+      
   private:
     unsigned long _rate = 0;
     unsigned long _nextMillis = 0;
     unsigned long _ticks = 0;
+
 };
 

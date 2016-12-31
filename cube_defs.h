@@ -44,5 +44,3 @@ const int GRID[PIXEL_COUNT] = { PX_1, PX_2, PX_3, PX_4, PX_5, PX_6, PX_7, PX_8, 
 // NOTE: we will activate one layer at a time.
 const int LAYER[CUBE_SIZE] = { LR_BOT, LR_MID, LR_TOP };
 
-boolean DATA[CUBE_SIZE][CUBE_SIZE][CUBE_SIZE];
-

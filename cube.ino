@@ -24,7 +24,6 @@ Cube::Cube() {
 void Cube::initialize() {
   trace("initialize cube.");
   initializeIO();
-  initializeBuffer();
 }
 
 void Cube::animate() {
@@ -36,5 +35,6 @@ void Cube::animate() {
 void Cube::add(Animation *animation)
 {
   a = animation;
+  a->reset();
 }
 

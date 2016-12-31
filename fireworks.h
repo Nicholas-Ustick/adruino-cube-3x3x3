@@ -17,29 +17,20 @@
   along with arduino-cube-3x3x3 .  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "cube_defs.h"
-#include "animation.h"
-#include "cube.h"
+class Fireworks : public Animation {
+  const int LAUNCH = 0;
+  const int BLOOME = 1;
+  const int CLEAR = 3;  
+  
+  public:
+    Fireworks();
+    Fireworks(unsigned long rate);
 
-#include "walker.h"
-#include "fireworks.h"
+    boolean update();
+    void show();
 
-Cube cube = Cube();
-
-/**
-   Initialize the environment.
-*/
-void setup() {
-  Serial.begin(115200);
-  Serial.write( "arduino-cube-3x3x3 running...\n");
-  cube.add(new Walker());
-  //cube.add(new Fireworks());
-  cube.initialize();  
-  //debug(true);
-}
-
-void loop() {
-  cube.animate();
-}
-
+  private:
+    int state = LAUNCH;
+  
+};
 

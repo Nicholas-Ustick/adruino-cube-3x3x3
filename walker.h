@@ -24,7 +24,6 @@ class Walker : public Animation {
     Walker(unsigned long rate);
 
     boolean update();
-    void show();
 
   private:
     void startingPixel(int x, int y, int z);

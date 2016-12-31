@@ -19,6 +19,7 @@
 
 Walker::Walker() {
   startingPixel(0, 0, 0);
+  setTimer(250);
 }
 
 Walker::Walker(unsigned long rate) : Animation(rate) {
@@ -52,30 +53,6 @@ void Walker::moveToNextPixel() {
 
   if (_x == 0 && _y == 0 ) {
     _z = incrementValue(_z, CUBE_SIZE);
-  }
-}
-
-void Walker::show() {
-  for (int z = 0; z < CUBE_SIZE; z++) {
-    activateLayer(_z);
-//    Serial.println("-----------------------------");
-    for (int y = 0; y < CUBE_SIZE; y++) {
-//      Serial.print("|");
-      for (int x = 0; x < CUBE_SIZE; x++) {
-        int p = CUBE_SIZE * y + x;
-/*
-        Serial.print("[");
-        Serial.print(p);
-        Serial.print("]=");        
-        Serial.print(DATA[x][y][z]);
-        Serial.print(" ");
-*/
-        digitalWrite(GRID[p], DATA[x][y][z] );
-      }
-      //Serial.println("|");
-    }
-//    Serial.println("-----------------------------");
-//    delay(10);
   }
 }
 

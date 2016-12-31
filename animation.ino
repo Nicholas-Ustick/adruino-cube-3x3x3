@@ -25,9 +25,14 @@ Animation::Animation(unsigned long ticks) {
   setTimer(ticks);
 }
 
-
 void Animation::reset() {
-  initializeBuffer();
+  for ( int x = 0; x < CUBE_SIZE; x++ ) {
+    for ( int y = 0; y < CUBE_SIZE; y++ ) {
+      for ( int z = 0; z < CUBE_SIZE; z++ ) {
+        DATA[x][y][z] = false;
+      }
+    }
+  }
 }
 
 void Animation::setTimer(unsigned long ticks ) {
@@ -51,5 +56,52 @@ void Animation::nextTimeup() {
     m += ", _nextMillis = "; m += _nextMillis;
     m += ", _ticks = "; m += _ticks;
     trace(m);
+  }
+}
+
+
+void Animation::show() {
+  for (int z = 0; z < CUBE_SIZE; z++) {
+    selectLayer(z);
+    if (isDebug())
+      Serial.println("-----------------------------");
+    for (int y = 0; y < CUBE_SIZE; y++) {
+      //      Serial.print("|");
+      for (int x = 0; x < CUBE_SIZE; x++) {
+        int p = CUBE_SIZE * y + x;
+
+        if (isDebug()) {
+          Serial.print("[");
+          Serial.print(p);
+          Serial.print("]=");
+          Serial.print(DATA[x][y][z]);
+          Serial.print(" ");
+        }
+        if (DATA[x][y][z]) {
+          digitalWrite(GRID[p], DATA[x][y][z] );
+          if (isDebug())
+            delay(500);
+          delay(1);
+          digitalWrite(GRID[p], false );
+        }
+      }
+      if (isDebug())
+        Serial.println("|");
+    }
+    if (isDebug())
+      Serial.println("-----------------------------");
+  }
+}
+
+
+/**
+   Turns on the selected layer.
+*/
+void Animation::selectLayer(int layer ) {
+  for (int l = 0; l < CUBE_SIZE; l++ ) {
+    if (l == layer )
+      digitalWrite(LAYER[l], LOW);
+    else
+      digitalWrite(LAYER[l], HIGH);
   }
 }

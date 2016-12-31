@@ -58,7 +58,6 @@ int incrementValue(int value, const int maxValue ) {
   return value;
 }
 
-
 void initializeIO() {
   // Layers
   for (int l = 0; l < CUBE_SIZE; l++) {
@@ -68,30 +67,6 @@ void initializeIO() {
   // Pixels
   for (int p = 0; p < PIXEL_COUNT; p++) {
     pinMode(GRID[p], OUTPUT);
-  }
-}
-
-void initializeBuffer() {
-  for ( int x = 0; x < CUBE_SIZE; x++ ) {
-    for ( int y = 0; y < CUBE_SIZE; y++ ) {
-      for ( int z = 0; z < CUBE_SIZE; z++ ) {
-        DATA[x][y][z] = false;
-      }
-    }
-  }
-}
-
-int selectedLayer = -1;
-/**
-   Turns on the selected layer.
-*/
-void activateLayer(int layer ) {
-  if ( selectedLayer != layer ) {
-    for (int l = 0; l < CUBE_SIZE; l++ ) {
-      int value = (l == layer ? LOW : HIGH );
-      digitalWrite(LAYER[l], value);
-    }
-    selectedLayer = layer;
   }
 }
 
