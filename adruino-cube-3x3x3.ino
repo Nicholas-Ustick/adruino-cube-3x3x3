@@ -32,8 +32,8 @@ Cube cube = Cube();
 void setup() {
   Serial.begin(115200);
   Serial.write( "arduino-cube-3x3x3 running...\n");
-  cube.add(new Walker());
-  //cube.add(new Fireworks());
+  //cube.add(new Walker());
+  cube.add(new Fireworks());
   cube.initialize();  
   //debug(true);
 }

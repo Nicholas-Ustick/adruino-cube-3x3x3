@@ -18,16 +18,44 @@
 */
 
 Fireworks::Fireworks() {
-  
+  setTimer(500);
 }
 
-Fireworks::Fireworks(unsigned long rate){
-  
+Fireworks::Fireworks(unsigned long rate) : Animation(rate) {
 }
 
 boolean Fireworks::update() {
+  if (isTimeup()) {
+    updateState();
+    nextTimeup();
+    return true;
+  }
   return false;
 }
 
+void Fireworks::updateState() {
+  switch (_state) {
+    case LAUNCH: {
+        DATA[1][1][_count] = true;
+        if ( _count > 0 ) {
+          DATA[1][1][_count - 1] = false;
+        }
+        _count++;
+        if ( _count == CUBE_SIZE ) {
+          _state = SPARKLE;
+        }
+      }
+      break;
 
+    case SPARKLE: {
+        reset();
+        _count = 0;
+        _state = LAUNCH;
+      }
+      break;
+
+    default:
+      break;
+  }
+}
 

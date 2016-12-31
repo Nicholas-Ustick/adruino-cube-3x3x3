@@ -18,11 +18,11 @@
 */
 
 class Fireworks : public Animation {
-  const int LAUNCH = 0;
-  const int BLOOME = 1;
-  const int CLEAR = 3;  
-  
   public:
+    static const int LAUNCH = 0;
+    static const int SPARKLE = 1;
+    static const int CLEAR = 3;
+  
     Fireworks();
     Fireworks(unsigned long rate);
 
@@ -30,7 +30,9 @@ class Fireworks : public Animation {
     void show();
 
   private:
-    int state = LAUNCH;
-  
+    void updateState();
+    
+    int _state = LAUNCH;
+    int _count = 0;
 };
 
