@@ -17,8 +17,18 @@
   along with arduino-cube-3x3x3 .  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#define DEFAULT_SIZE 10
 
 Cube::Cube() {
+  animationList = new Animation*[DEFAULT_SIZE];
+  _size = DEFAULT_SIZE;
+  _end = 0;
+}
+
+Cube::Cube(int elements) {
+  animationList = new Animation*[elements];
+  _size = elements;
+  _end = 0;
 }
 
 void Cube::initialize() {
@@ -27,14 +37,53 @@ void Cube::initialize() {
 }
 
 void Cube::animate() {
-  if ( a->update() ) {
-    a->show();
+  printCubeData();
+  if (valueInRange(_current, _end)) {
+    Animation* a = animationList[_current];
+    if ( a->finished() ) {
+      a->reset();
+      trace("animation complete" );
+      _current++;
+      if ( _current == _end ) {
+        _current = 0;
+      }
+      printCubeData();
+    }
+    else {
+      a->update();
+      a->show();
+    }
+  }
+  else if (isDebug() ) {
+    String m = String("Animation cursor out of range.");
+    m += " cursor=" + _current;
+    m += ", end=" + _end;
+    trace(m);
   }
 }
 
-void Cube::add(Animation *animation)
-{
-  a = animation;
-  a->reset();
+void Cube::printCubeData() {
+  if (isDebug() && (traceLimit % 20) == 0 ) {
+    String m = String("Cube data: ");
+    m += " cursor="; m += _current;
+    m += ", end="; m += _end;
+    trace(m);
+  }
+  traceLimit++;
 }
+
+void Cube::animate(int iterations) {
+  animate();
+}
+
+void Cube::add(Animation *animation) {
+  trace("Add animation.");
+  animation->printName();
+  if ( _end < _size ) {
+    animation->reset();
+    animationList[_end] = animation;
+    _end++;
+  }
+}
+
 

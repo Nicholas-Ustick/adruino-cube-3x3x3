@@ -17,21 +17,15 @@
   along with arduino-cube-3x3x3 .  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Walker::Walker() {
-  startingPixel(0, 0, 0);
-  setTimer(250);
-}
-
 Walker::Walker(unsigned long rate) : Animation(rate) {
   startingPixel(0, 0, 0);
+  setName("Walker");
 }
-
 
 void Walker::startingPixel(int x, int y, int z) {
   _x = x;  _y = y;  _z = z;
   DATA[x][y][z] = true;
 }
-
 
 boolean Walker::update() {
   if (isTimeup() ) {
@@ -39,7 +33,10 @@ boolean Walker::update() {
     moveToNextPixel();
     DATA[_x][_y][_z] = true;
     DATA[x][y][z] = false;
-    nextTimeup();
+
+    if (_x == 0 && _y == 0 && _z == 0 ) {
+      finished(true);
+    }
   }
   return true;
 }
@@ -55,4 +52,5 @@ void Walker::moveToNextPixel() {
     _z = incrementValue(_z, CUBE_SIZE);
   }
 }
+
 

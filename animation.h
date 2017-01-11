@@ -22,32 +22,52 @@
 */
 class Animation {
   public:
-    Animation();
     Animation(unsigned long ticks);
 
-    void reset();
+    /**
+        Subclasses implement the logic to
+        Populate the DATA for the cube on
+        each loop and determine the frame rates.
+        Returns "true" if the state was updated.
+    */
+    virtual boolean update() = 0;
+
+    /**
+       Show should be called for each frame to be painted.
+    */
     void show();
 
-    /** Subclasses implement the logic to
-     *  Populate the DATA for the cube on
-     *  each loop and determine the frame rates.
-     */
-    virtual boolean update() = 0;
+    /**
+       Indicates if the animation is completed.
+       Call reset() to restart the animation.
+    */
+    boolean finished();
+
+    /**
+       Initialize the animation to a good starting point.
+    */
+    void reset();
+
+    /**
+       Trace out the animation's name to the Serial line.
+    */
+    void printName();
 
   protected:
     void setTimer(unsigned long ticks );
     boolean isTimeup();
-    void nextTimeup();
 
     void selectLayer(int z);
 
-    // Maintains the  pixel settings.
-    boolean DATA[CUBE_SIZE][CUBE_SIZE][CUBE_SIZE];
-      
+    void setName(String name);
+    void finished(boolean state);
+
   private:
     unsigned long _rate = 0;
     unsigned long _nextMillis = 0;
-    unsigned long _ticks = 0;
 
+    String _name = "Animation";
+    boolean _finished = false;
 };
+
 

@@ -22,17 +22,16 @@ class Fireworks : public Animation {
     static const int LAUNCH = 0;
     static const int SPARKLE = 1;
     static const int CLEAR = 3;
-  
-    Fireworks();
+
     Fireworks(unsigned long rate);
 
     boolean update();
-    void show();
 
   private:
     void updateState();
-    
+
     int _state = LAUNCH;
     int _count = 0;
 };
+
 

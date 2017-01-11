@@ -20,8 +20,10 @@
 class Cube {
   public:
     Cube();
+    Cube(int elements);
     void initialize();
     void animate();
+    void animate(int iterations);
 
     void add(Animation* animation);
 
@@ -30,6 +32,13 @@ class Cube {
       One animation for now.
       Later we will ad capabilities to rotate through several animations.
     */
-    Animation* a;
+    Animation** animationList;
+    unsigned int _current = 0;
+    unsigned int _size = 0;
+    unsigned int _end = 0;
+
+    unsigned int traceLimit = 0;
+    void printCubeData();
 };
+
 

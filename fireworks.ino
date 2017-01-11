@@ -17,17 +17,13 @@
   along with arduino-cube-3x3x3 .  If not, see <http://www.gnu.org/licenses/>.
 */
 
-Fireworks::Fireworks() {
-  setTimer(50);
-}
-
 Fireworks::Fireworks(unsigned long rate) : Animation(rate) {
+  setName("Fireworks");
 }
 
 boolean Fireworks::update() {
   if (isTimeup()) {
     updateState();
-    nextTimeup();
     return true;
   }
   return false;
@@ -46,35 +42,40 @@ void Fireworks::updateState() {
         if ( _count > 0 ) {
           DATA[1][1][_count - 1] = false;
         }
+
         _count++;
+
         if ( _count == CUBE_SIZE ) {
           _state = SPARKLE;
         }
-        setTimer(50*(_count+1));
       }
       break;
 
     case SPARKLE: {
-        reset();
         _count--;
 
         if ( _count < 0 ) {
           _count = 0;
           _state = LAUNCH;
+          finished(true);
+          trace("BOOM!");
           break;
         }
 
         for (int x = 0; x < CUBE_SIZE; x++) {
           for (int y = 0; y < CUBE_SIZE; y++) {
             DATA[x][y][_count] = SPARKLE_LEDS[x][y];
+            if (_count < CUBE_SIZE - 1 ) {
+              DATA[x][y][_count + 1] = false;
+            }
           }
         }
-        setTimer(100*(4-_count));
-        }
+      }
       break;
 
     default:
       break;
   }
 }
+
 

@@ -1,5 +1,5 @@
 /**
-  Copyright (c) 2016 by Nicholas R. Ustick <nick@stoicprogrammer.com>
+  Copyright (c) 2017 by Nicholas R. Ustick <nick@stoicprogrammer.com>
 
   This file is part of arduino-cube-3x3x3.
 
@@ -17,20 +17,15 @@
   along with arduino-cube-3x3x3 .  If not, see <http://www.gnu.org/licenses/>.
 */
 
-class Walker : public Animation {
+class Walls: public Animation {
 
   public:
-    Walker(unsigned long rate);
-
+    Walls(unsigned long rate);
     boolean update();
 
   private:
-    void startingPixel(int x, int y, int z);
-    void moveToNextPixel();
-
-    int _x = 0;
-    int _y = 0;
-    int _z = 0;
+    int _plane;
+    int _direction;
 };
 
 

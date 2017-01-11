@@ -23,6 +23,7 @@
 
 #include "walker.h"
 #include "fireworks.h"
+#include "walls.h"
 
 Cube cube = Cube();
 
@@ -30,16 +31,19 @@ Cube cube = Cube();
    Initialize the environment.
 */
 void setup() {
-  Serial.begin(115200);
-  Serial.write( "arduino-cube-3x3x3 running...\n");
-  //cube.add(new Walker());
-  cube.add(new Fireworks());
-  cube.initialize();  
-  //debug(true);
+//  delay(1000);
+//  debug(true);
+//  Serial.begin(115200);
+//  Serial.write( "arduino-cube-3x3x3 running...\n");
+  cube.add(new Walker(20));
+  cube.add(new Fireworks(500));
+  cube.add(new Walls(1000));
+  cube.initialize();
 }
 
 void loop() {
   cube.animate();
 }
+
 
 

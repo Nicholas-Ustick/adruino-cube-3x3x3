@@ -18,25 +18,13 @@
 */
 
 
-/**
-   A flag that can be inspected to determine if se should print tracing to Serial.
-*/
-boolean _debugFlag = false;
-
 boolean isDebug() {
   return _debugFlag;
-}
-/**
-   Toggle debugging.
-*/
-void debug() {
-  _debugFlag = !_debugFlag;
 }
 
 void debug(boolean debugFlag) {
   _debugFlag = debugFlag;
 }
-
 
 void trace(String message) {
   if (_debugFlag) {
@@ -52,10 +40,15 @@ void trace(String message) {
 */
 int incrementValue(int value, const int maxValue ) {
   value++;
+  value = constrain(value, 0, maxValue);
   if ( value >= maxValue ) {
     value = 0;
   }
   return value;
+}
+
+boolean valueInRange(int value, const int maxValue ) {
+  return (0 <= value && value < maxValue );
 }
 
 void initializeIO() {
@@ -69,4 +62,5 @@ void initializeIO() {
     pinMode(GRID[p], OUTPUT);
   }
 }
+
 

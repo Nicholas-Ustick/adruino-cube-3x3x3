@@ -38,9 +38,20 @@
 
 // The list of LEDs in a plane in order to be lit. (ie. lower left corner to upper right corner.
 // NOTE: Orientation of Lower-left corner is neare the barrel connector on the Arduino UNO.
-const int GRID[PIXEL_COUNT] = { PX_1, PX_2, PX_3, PX_4, PX_5, PX_6, PX_7, PX_8, PX_9 };
+const byte GRID[PIXEL_COUNT] = { PX_1, PX_2, PX_3, PX_4, PX_5, PX_6, PX_7, PX_8, PX_9 };
 
 // List of layer pins so we can activate a layer or not.
 // NOTE: we will activate one layer at a time.
-const int LAYER[CUBE_SIZE] = { LR_BOT, LR_MID, LR_TOP };
+const byte LAYER[CUBE_SIZE] = { LR_BOT, LR_MID, LR_TOP };
+
+// Shared cube state buffer. Animation->show() will "print" out the state.
+byte DATA[CUBE_SIZE][CUBE_SIZE][CUBE_SIZE];
+
+/**
+   A flag that can be inspected to determine if se should print tracing to Serial.
+*/
+boolean _debugFlag = false;
+
+
+
 

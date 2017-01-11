@@ -1,5 +1,5 @@
 /**
-  Copyright (c) 2016 by Nicholas R. Ustick <nick@stoicprogrammer.com>
+  Copyright (c) 2017 by Nicholas R. Ustick <nick@stoicprogrammer.com>
 
   This file is part of arduino-cube-3x3x3.
 
@@ -16,21 +16,37 @@
   You should have received a copy of the GNU General Public License
   along with arduino-cube-3x3x3 .  If not, see <http://www.gnu.org/licenses/>.
 */
+int LEFT_RIGHT = 0;
+int RIGHT_LEFT = 1;
+int BOTTOM_TOP = 2;
+int TOP_BOTTOM = 3;
+int FRONT_BACK = 4;
+int BACK_FRONT = 5;
 
-class Walker : public Animation {
+Walls::Walls(unsigned long rate) : Animation(rate) {
+  setName("Walls");
+  _plane = 0;
+  _direction = LEFT_RIGHT;
+}
 
-  public:
-    Walker(unsigned long rate);
+boolean Walls::update() {
+  if (_plane > CUBE_SIZE) {
+    finished(true);
+    _plane = 0;
+    return true;
+  }
 
-    boolean update();
+  if (isTimeup()) {
+    for (int z = 0; z < CUBE_SIZE ; z++) {
+      for (int y = 0; y < CUBE_SIZE; y++ ) {
+        DATA[_plane][y][z] = true;
+      }
+    }
+    _plane++;
+    return true;
+  }
+  return false;
+}
 
-  private:
-    void startingPixel(int x, int y, int z);
-    void moveToNextPixel();
-
-    int _x = 0;
-    int _y = 0;
-    int _z = 0;
-};
 
 
