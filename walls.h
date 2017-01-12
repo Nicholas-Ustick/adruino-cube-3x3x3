@@ -26,6 +26,17 @@ class Walls: public Animation {
   private:
     int _plane;
     int _direction;
+
+    void nextState();
+    void moveLeftRight();
+    void moveRightLeft();
+
+    void moveBottomTop();
+    void moveTopBottom();
+    void moveFrontBack();
+    void moveBackFront();
+    void moveSlideAround();
+    void moveSlideOver();
 };
 
 

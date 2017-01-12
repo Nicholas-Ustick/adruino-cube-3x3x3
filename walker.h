@@ -21,7 +21,6 @@ class Walker : public Animation {
 
   public:
     Walker(unsigned long rate);
-
     boolean update();
 
   private:

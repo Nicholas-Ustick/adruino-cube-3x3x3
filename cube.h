@@ -19,7 +19,6 @@
 
 class Cube {
   public:
-    Cube();
     Cube(int elements);
     void initialize();
     void animate();

@@ -47,9 +47,7 @@ const byte LAYER[CUBE_SIZE] = { LR_BOT, LR_MID, LR_TOP };
 // Shared cube state buffer. Animation->show() will "print" out the state.
 byte DATA[CUBE_SIZE][CUBE_SIZE][CUBE_SIZE];
 
-/**
-   A flag that can be inspected to determine if se should print tracing to Serial.
-*/
+// A flag that can be inspected to determine if se should print tracing to Serial.
 boolean _debugFlag = false;
 
 

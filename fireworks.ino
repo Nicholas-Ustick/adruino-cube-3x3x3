@@ -31,16 +31,16 @@ boolean Fireworks::update() {
 
 void Fireworks::updateState() {
   const boolean SPARKLE_LEDS[3][3] = {
-    {true, true, true },
-    {true, false, true },
-    {true, true, true },
+    {HIGH, HIGH, HIGH},
+    {HIGH, LOW,  HIGH},
+    {HIGH, HIGH, HIGH},
   };
 
   switch (_state) {
     case LAUNCH: {
         DATA[1][1][_count] = true;
         if ( _count > 0 ) {
-          DATA[1][1][_count - 1] = false;
+          DATA[1][1][_count - 1] = LOW;
         }
 
         _count++;
@@ -66,7 +66,7 @@ void Fireworks::updateState() {
           for (int y = 0; y < CUBE_SIZE; y++) {
             DATA[x][y][_count] = SPARKLE_LEDS[x][y];
             if (_count < CUBE_SIZE - 1 ) {
-              DATA[x][y][_count + 1] = false;
+              DATA[x][y][_count + 1] = LOW;
             }
           }
         }

@@ -53,7 +53,8 @@ void Animation::reset() {
 void Animation::finished(boolean state) {
   if ( isDebug() ) {
     printName();
-    trace("Finished!"+state);
+    String m = "Finished!  "; m += state;
+    trace(m);
   }
   _finished = state;
 }

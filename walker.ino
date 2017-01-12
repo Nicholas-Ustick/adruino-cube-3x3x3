@@ -24,15 +24,15 @@ Walker::Walker(unsigned long rate) : Animation(rate) {
 
 void Walker::startingPixel(int x, int y, int z) {
   _x = x;  _y = y;  _z = z;
-  DATA[x][y][z] = true;
+  DATA[x][y][z] = HIGH;
 }
 
 boolean Walker::update() {
   if (isTimeup() ) {
     int x = _x, y = _y, z = _z;
     moveToNextPixel();
-    DATA[_x][_y][_z] = true;
-    DATA[x][y][z] = false;
+    DATA[_x][_y][_z] = HIGH;
+    DATA[x][y][z] = LOW;
 
     if (_x == 0 && _y == 0 && _z == 0 ) {
       finished(true);
@@ -52,5 +52,3 @@ void Walker::moveToNextPixel() {
     _z = incrementValue(_z, CUBE_SIZE);
   }
 }
-
-

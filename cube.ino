@@ -17,14 +17,6 @@
   along with arduino-cube-3x3x3 .  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#define DEFAULT_SIZE 10
-
-Cube::Cube() {
-  animationList = new Animation*[DEFAULT_SIZE];
-  _size = DEFAULT_SIZE;
-  _end = 0;
-}
-
 Cube::Cube(int elements) {
   animationList = new Animation*[elements];
   _size = elements;

@@ -1,5 +1,5 @@
 /**
-  Copyright (c) 2016 by Nicholas R. Ustick <nick@stoicprogrammer.com>
+  Copyright (c) 2017 by Nicholas R. Ustick <nick@stoicprogrammer.com>
 
   This file is part of arduino-cube-3x3x3.
 
@@ -17,40 +17,14 @@
   along with arduino-cube-3x3x3 .  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "cube_defs.h"
-#include "animation.h"
-#include "cube.h"
+class RandPixel : public Animation {
 
-#include "walker.h"
-#include "fireworks.h"
-#include "walls.h"
-#include "randpixel.h"
+  public:
+    RandPixel(unsigned long rate);
+    boolean update();
 
-// Animations
-#define ANIMATION_COUNT 4
-
-Cube cube = Cube(ANIMATION_COUNT);
-
-/**
-   Initialize the environment.
-*/
-void setup() {
-  Serial.begin(115200);
-  randomSeed(analogRead(0));
-//  delay(1000);
-//  debug(true);
-
-//  Serial.write( "arduino-cube-3x3x3 running...\n");
-  cube.add(new Walker(50));
-  cube.add(new Fireworks(500));
-  cube.add(new Walls(300));
-  cube.add(new RandPixel(200));
-  cube.initialize();
-}
-
-void loop() {
-  cube.animate();
-}
-
+  private:
+    int _x, _y, _z;
+};
 
 
